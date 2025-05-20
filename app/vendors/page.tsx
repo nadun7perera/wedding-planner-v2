@@ -76,7 +76,8 @@ export default function VendorList() {
       </div>
 
       {/* Column headers */}
-      <div className="grid grid-cols-4 items-center px-6 mb-2 pb-2 border-b border-gray-300 text-sm font-medium text-gray-600">
+      {/* <div className="grid grid-cols-4 items-center px-6 mb-2 pb-2 border-b border-gray-300 text-sm font-medium text-gray-600"> */}
+      <div className="hidden sm:grid grid-cols-4 items-center px-6 mb-2 pb-2 border-b border-gray-300 text-sm font-medium text-gray-600">
         <div>Vendor</div>
         <div>Contact</div>
         <div>Category</div>
@@ -89,35 +90,44 @@ export default function VendorList() {
           <div
             key={v.id}
             onClick={() => setSelectedVendor(v)}
-            className="py-4 grid grid-cols-4 items-center px-6"
+            className="py-4 px-6 border-b border-gray-200 sm:grid sm:grid-cols-4 sm:items-center space-y-2 sm:space-y-0"
           >
-            <div className="text-lg text-gray-900">{v.name}</div>
-            <div className="text-sm text-gray-600">{v.contact}</div>
-            <div className="text-sm text-gray-600">{v.category}</div>
             <div>
+              <p className="text-lg text-gray-900">{v.name}</p>
+              <p className="text-sm text-gray-600 sm:hidden">Contact: {v.contact}</p>
+              <p className="text-sm text-gray-600 sm:hidden">Category: {v.category}</p>
+              <p className="text-sm text-gray-600 sm:hidden">
+                <a
+                  href={v.catalogue}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-accent underline"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  View Catalogue
+                </a>
+              </p>
+            </div>
+            <div className="hidden sm:block text-sm text-gray-600">{v.contact}</div>
+            <div className="hidden sm:block text-sm text-gray-600">{v.category}</div>
+            <div className="hidden sm:block">
               <a
                 href={v.catalogue}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="
-                  inline-block 
-                  bg-accent text-gray-900 
-                  font-medium 
-                  rounded 
-                  hover:bg-accent-dark 
-                  transition
-                "
+                className="inline-block bg-accent text-gray-900 font-medium rounded px-3 py-1 hover:bg-accent-dark transition"
                 onClick={(e) => e.stopPropagation()}
               >
                 View Catalogue
               </a>
             </div>
           </div>
+
         ))}
       </div>
 
-            {/* Vendor Modal */}
-            {selectedVendor && (
+      {/* Vendor Modal */}
+      {selectedVendor && (
         <VendorDetailsModal
           vendor={selectedVendor}
           event={selectedEvent}
