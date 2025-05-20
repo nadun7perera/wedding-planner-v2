@@ -64,16 +64,24 @@ export default function RootLayout({
 
           {/* Navigation */}
           <nav className="flex space-x-8 border-b border-gray-300 pb-4 mb-8">
-            <a href="/" className="border-b-2 border-black pb-1 font-semibold">Home</a>
+            <Link href="/" className="hover:underline">Home</Link>
+            <Link href="/guests" className="hover:underline">Guests</Link>
+            <Link href="/budget-tracker" className="hover:underline">Budget</Link>
+            <Link href="/vendors" className="hover:underline">Vendor List</Link>
+            <Link href="/vendors/addVendors" className="hover:underline">Add Vendor</Link>
+            {/* <a href="#" className="border-b-2 border-black pb-1 font-semibold">Home</a>
             <a href="/guests" className="hover:underline text-gray-700">Guests</a>
             <a href="/budget-tracker" className="hover:underline text-gray-700">Budget</a>
             <a href="/vendors" className="hover:underline text-gray-700">Vendor List</a>
-            <a href="/vendors/addVendors" className="hover:underline text-gray-700">Add Vendor</a>
+            <a href="/vendors/addVendors" className="hover:underline text-gray-700">Add Vendor</a> */}
           </nav>
           <main className="container mx-auto p-6">
             {children}
           </main>
         </div>
+
+
+
       </body>
     </html>
   );
