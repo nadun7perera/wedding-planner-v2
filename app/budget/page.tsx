@@ -1,4 +1,7 @@
 // src/components/BudgetTracker.tsx
+
+"use client"
+
 import { useEffect, useState } from "react";
 import { db, storage } from "../firebase";
 import {

@@ -11,6 +11,7 @@ type Vendor = {
   totalPrice?: number;
   amountPaid?: number;
   itemsRented?: { item: string; quantity: number }[];
+  booked?: boolean;
 };
 
 export default function VendorDetailsModal({
@@ -28,6 +29,7 @@ export default function VendorDetailsModal({
     vendor.itemsRented?.length ? vendor.itemsRented : []
   );
   const [editSelected, setEditSelected] = useState(false);
+  const [booked, setBooked] = useState(false);
 
   const handleSave = async () => {
     const vendorRef = doc(db, "events", event, "vendors", vendor.id);
@@ -35,6 +37,7 @@ export default function VendorDetailsModal({
       totalPrice,
       amountPaid,
       itemsRented,
+      booked,
     });
     setEditSelected(false);
     onClose();
@@ -53,14 +56,14 @@ export default function VendorDetailsModal({
   // };
 
   const updateItem = (
-  index: number,
-  key: "item" | "quantity",
-  value: string | number
-) => {
-  const updated = [...itemsRented];
-  updated[index] = { ...updated[index], [key]: value };
-  setItemsRented(updated);
-};
+    index: number,
+    key: "item" | "quantity",
+    value: string | number
+  ) => {
+    const updated = [...itemsRented];
+    updated[index] = { ...updated[index], [key]: value };
+    setItemsRented(updated);
+  };
 
 
   const addItem = () => {
@@ -71,6 +74,12 @@ export default function VendorDetailsModal({
     const updated = itemsRented.filter((_, i) => i !== index);
     setItemsRented(updated);
   };
+
+  const toggleBooked = () => {
+    setBooked(true)
+  };
+
+
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 px-4">
@@ -164,6 +173,19 @@ export default function VendorDetailsModal({
             )}
           </ul>
         )}
+        <p className="text-sm text-gray-500">Booked?</p>
+        {editSelected ? (
+          <input
+            type="checkbox"
+            checked={booked || false}
+            onChange={(e) => {
+              e.stopPropagation();
+              toggleBooked();
+            }}
+          />
+        ) : (
+          <p className="text-sm text-gray-600">{booked ? "Yes" : "No"}</p>
+        )}
 
         {/* Buttons */}
         <div className="flex justify-between items-center mt-6">
@@ -191,6 +213,6 @@ export default function VendorDetailsModal({
           )}
         </div>
       </div>
-    </div>
+    </div >
   );
 }

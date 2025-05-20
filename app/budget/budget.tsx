@@ -3,7 +3,7 @@ import { useEffect }               from 'react'
 import { useAuthState }            from 'react-firebase-hooks/auth'
 import { auth }                    from '../firebase'
 import { useRouter }               from 'next/router'
-import BudgetTracker from './BudgetTracker'
+import BudgetTracker from './page'
 
 export default function VendorListPage() {
   const [user, loading] = useAuthState(auth)

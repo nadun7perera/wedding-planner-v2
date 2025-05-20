@@ -22,6 +22,7 @@ type Vendor = {
   totalPrice?: number;
   amountPaid?: number;
   items?: { name: string; quantity: number }[];
+  booked?: boolean;
 };
 
 export default function VendorList() {
@@ -75,11 +76,12 @@ export default function VendorList() {
       </div>
 
       {/* Column headers for desktop */}
-      <div className="hidden sm:grid grid-cols-4 items-center mb-2 pb-2 border-b border-gray-300 text-sm font-medium text-gray-600">
+      <div className="hidden sm:grid grid-cols-5 items-center mb-2 pb-2 border-b border-gray-300 text-sm font-medium text-gray-600">
         <div>Vendor</div>
         <div>Contact</div>
         <div>Category</div>
         <div>Catalogue</div>
+        <div>Booked?</div>
       </div>
 
       {/* Vendor rows */}
@@ -88,7 +90,7 @@ export default function VendorList() {
           <div
             key={v.id}
             onClick={() => setSelectedVendor(v)}
-            className="py-4 px-4 sm:px-0 border-b border-gray-200 sm:grid sm:grid-cols-4 sm:items-center space-y-2 sm:space-y-0 cursor-pointer hover:bg-gray-50 transition"
+            className="py-4 px-4 sm:px-0 border-b border-gray-200 sm:grid sm:grid-cols-5 sm:items-center space-y-2 sm:space-y-0 cursor-pointer hover:bg-gray-50 transition"
           >
             {/* Mobile View */}
             <div className="sm:hidden">
@@ -106,6 +108,7 @@ export default function VendorList() {
                   View Catalogue
                 </a>
               </p>
+              <p className="text-sm text-gray-600">Category: {v.category}</p>
             </div>
 
             {/* Desktop View */}
@@ -125,6 +128,7 @@ export default function VendorList() {
                 View Catalogue
               </a>
             </div>
+            <div className="hidden sm:block text-sm text-gray-600">{v.booked ? "Yes" : "No"}</div>
           </div>
         ))}
       </div>
