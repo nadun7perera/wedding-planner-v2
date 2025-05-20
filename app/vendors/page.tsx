@@ -108,7 +108,7 @@ export default function VendorList() {
                   View Catalogue
                 </a>
               </p>
-              <p className="text-sm text-gray-600">Category: {v.category}</p>
+              <p className="text-sm text-gray-600">Booked?: {v.booked ? "Yes" : "No"}</p>
             </div>
 
             {/* Desktop View */}
