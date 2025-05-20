@@ -9,13 +9,13 @@ import { getStorage } from 'firebase/storage';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyC2LHzxdUnXSxwfxwdkA7eh21erwkxXRpI",
-    authDomain: "wedding-planner-v2-71989.firebaseapp.com",
-    projectId: "wedding-planner-v2-71989",
-    storageBucket: "wedding-planner-v2-71989.firebasestorage.app",
-    messagingSenderId: "276056910597",
-    appId: "1:276056910597:web:f411606c38dd6a10e6256c"
-  };
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+};
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
