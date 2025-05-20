@@ -29,10 +29,14 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
 
-        <div className="min-h-screen bg-white text-gray-900">
-          <header className="bg-gray-100 border-b">
+        {/* <div className="min-h-screen bg-white text-gray-900">
+          <header className="bg-teal-200 border-b">
             <nav className="container mx-auto flex items-center justify-between p-4">
-              <h1 className="text-xl font-semibold">Wedding Planner</h1>
+              <h1 className="text-xl font-semibold leading-snug">
+                <span>Ova & Nadun's</span>
+                <br />
+                <span>Wedding Planner</span>
+              </h1>
               <ul className="flex space-x-4">
                 <li><Link href="/guests" className="hover:underline">Guests</Link></li>
                 <li><Link href="/budget-tracker" className="hover:underline">Budget</Link></li>
@@ -40,6 +44,32 @@ export default function RootLayout({
                 <li><Link href="/vendors" className="hover:underline">Vendor List</Link></li>          </ul>
             </nav>
           </header>
+          <main className="container mx-auto p-6">
+            {children}
+          </main>
+        </div> */}
+
+
+
+        <div className="min-h-screen bg-white text-gray-900 flex flex-col items-center">
+          {/* Heading */}
+          <header className="py-10 text-center">
+            <h1 className="text-4xl sm:text-5xl font-serif tracking-widest">
+              OVA + NADUN
+            </h1>
+            <p className="mt-2 text-sm uppercase text-gray-500">
+              July 23/24, 2025 • Colombo, SL
+            </p>
+          </header>
+
+          {/* Navigation */}
+          <nav className="flex space-x-8 border-b border-gray-300 pb-4 mb-8">
+            <a href="/" className="border-b-2 border-black pb-1 font-semibold">Home</a>
+            <a href="/guests" className="hover:underline text-gray-700">Guests</a>
+            <a href="/budget-tracker" className="hover:underline text-gray-700">Budget</a>
+            <a href="/vendors" className="hover:underline text-gray-700">Vendor List</a>
+            <a href="/vendors/addVendors" className="hover:underline text-gray-700">Add Vendor</a>
+          </nav>
           <main className="container mx-auto p-6">
             {children}
           </main>
