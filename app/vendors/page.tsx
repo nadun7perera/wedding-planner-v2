@@ -30,7 +30,6 @@ export default function VendorList() {
   const [selectedVendor, setSelectedVendor] = useState<Vendor | null>(null);
 
   useEffect(() => {
-    // Listen to vendors sub-collection under the selected event
     const q = query(
       collection(db, "events", selectedEvent, "vendors"),
       orderBy("createdAt", "desc")
@@ -47,9 +46,9 @@ export default function VendorList() {
   }, [selectedEvent]);
 
   return (
-    <div className="mt-8">
+    <div className="mt-8 px-4 sm:px-6">
       {/* Event selector */}
-      <div className="mb-6 flex items-center space-x-3 px-6">
+      <div className="mb-6 flex items-center space-x-3">
         <label htmlFor="event" className="font-medium text-gray-700">
           Select event:
         </label>
@@ -67,7 +66,7 @@ export default function VendorList() {
       </div>
 
       {/* Optional banner image */}
-      <div className="-mx-6 mb-4">
+      <div className="-mx-4 sm:-mx-6 mb-4">
         <img
           src="/vendor-list.jpg"
           alt="Wedding table setting"
@@ -75,9 +74,8 @@ export default function VendorList() {
         />
       </div>
 
-      {/* Column headers */}
-      {/* <div className="grid grid-cols-4 items-center px-6 mb-2 pb-2 border-b border-gray-300 text-sm font-medium text-gray-600"> */}
-      <div className="hidden sm:grid grid-cols-4 items-center px-6 mb-2 pb-2 border-b border-gray-300 text-sm font-medium text-gray-600">
+      {/* Column headers for desktop */}
+      <div className="hidden sm:grid grid-cols-4 items-center mb-2 pb-2 border-b border-gray-300 text-sm font-medium text-gray-600">
         <div>Vendor</div>
         <div>Contact</div>
         <div>Category</div>
@@ -90,23 +88,29 @@ export default function VendorList() {
           <div
             key={v.id}
             onClick={() => setSelectedVendor(v)}
-            className="py-4 px-6 border-b border-gray-200 sm:grid sm:grid-cols-4 sm:items-center space-y-2 sm:space-y-0"
+            className="py-4 px-4 sm:px-0 border-b border-gray-200 sm:grid sm:grid-cols-4 sm:items-center space-y-2 sm:space-y-0 cursor-pointer hover:bg-gray-50 transition"
           >
-            <div>
-              <p className="text-lg text-gray-900">{v.name}</p>
-              <p className="text-sm text-gray-600 sm:hidden">Contact: {v.contact}</p>
-              <p className="text-sm text-gray-600 sm:hidden">Category: {v.category}</p>
-              <p className="text-sm text-gray-600 sm:hidden">
+            {/* Mobile View */}
+            <div className="sm:hidden">
+              <p className="text-lg font-semibold text-gray-900">{v.name}</p>
+              <p className="text-sm text-gray-600 mt-1">Contact: {v.contact}</p>
+              <p className="text-sm text-gray-600">Category: {v.category}</p>
+              <p className="text-sm mt-2">
                 <a
                   href={v.catalogue}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-accent underline"
+                  className="text-blue-600 underline"
                   onClick={(e) => e.stopPropagation()}
                 >
                   View Catalogue
                 </a>
               </p>
+            </div>
+
+            {/* Desktop View */}
+            <div className="hidden sm:block">
+              <p className="text-base text-gray-900">{v.name}</p>
             </div>
             <div className="hidden sm:block text-sm text-gray-600">{v.contact}</div>
             <div className="hidden sm:block text-sm text-gray-600">{v.category}</div>
@@ -115,14 +119,13 @@ export default function VendorList() {
                 href={v.catalogue}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block bg-accent text-gray-900 font-medium rounded px-3 py-1 hover:bg-accent-dark transition"
+                className="inline-block bg-blue-100 text-gray-900 font-medium rounded px-3 py-1 hover:bg-blue-200 transition"
                 onClick={(e) => e.stopPropagation()}
               >
                 View Catalogue
               </a>
             </div>
           </div>
-
         ))}
       </div>
 
