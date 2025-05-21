@@ -15,16 +15,16 @@ import {
 // import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { Chart } from "react-google-charts";
 
-type BudgetEntry = {
-  id: string;
-  item: string;
-  vendor: string;
-  estimatedCost: number;
-  actualCost: number;
-  paid: boolean;
-  notes: string;
-  receiptUrl?: string;
-};
+// type BudgetEntry = {
+//   id: string;
+//   item: string;
+//   vendor: string;
+//   estimatedCost: number;
+//   actualCost: number;
+//   paid: boolean;
+//   notes: string;
+//   receiptUrl?: string;
+// };
 
 type Vendor = {
   id: string;
