@@ -3,19 +3,16 @@
 "use client"
 
 import { useEffect, useState } from "react";
-import { db, storage } from "../firebase";
+import { db } from "../firebase";
 import {
   collection,
-  addDoc,
-  doc,
   onSnapshot,
-  updateDoc,
   query,
   orderBy,
   Unsubscribe,
 
 } from "firebase/firestore";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+// import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { Chart } from "react-google-charts";
 
 type BudgetEntry = {
@@ -44,20 +41,20 @@ type Vendor = {
 export default function BudgetTracker() {
   const [event, setEvent] = useState("Poruwa");
   // const [entries, setEntries] = useState<BudgetEntry[]>([]);
-  const [form, setForm] = useState<Omit<BudgetEntry, "id">>({
-    item: "",
-    vendor: "",
-    estimatedCost: 0,
-    actualCost: 0,
-    paid: false,
-    notes: "",
-    receiptUrl: "",
-  });
-  const [editId, setEditId] = useState<string | null>(null);
+  // const [form, setForm] = useState<Omit<BudgetEntry, "id">>({
+  //   item: "",
+  //   vendor: "",
+  //   estimatedCost: 0,
+  //   actualCost: 0,
+  //   paid: false,
+  //   notes: "",
+  //   receiptUrl: "",
+  // });
+  // const [editId, setEditId] = useState<string | null>(null);
   // const [uploading, setUploading] = useState(false);
   const [vendors, setVendors] = useState<Vendor[]>([]);
 
-  const entriesRef = collection(db, `budget/${event}/entries`);
+  // const entriesRef = collection(db, `budget/${event}/entries`);
 
   // useEffect(() => {
   //   return onSnapshot(entriesRef, (snapshot) => {
