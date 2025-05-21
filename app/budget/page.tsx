@@ -7,7 +7,6 @@ import { db, storage } from "../firebase";
 import {
   collection,
   addDoc,
-  deleteDoc,
   doc,
   onSnapshot,
   updateDoc,
@@ -18,7 +17,6 @@ import {
 } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { Chart } from "react-google-charts";
-import { log } from "console";
 
 type BudgetEntry = {
   id: string;
@@ -45,7 +43,7 @@ type Vendor = {
 
 export default function BudgetTracker() {
   const [event, setEvent] = useState("Poruwa");
-  const [entries, setEntries] = useState<BudgetEntry[]>([]);
+  // const [entries, setEntries] = useState<BudgetEntry[]>([]);
   const [form, setForm] = useState<Omit<BudgetEntry, "id">>({
     item: "",
     vendor: "",
@@ -56,7 +54,7 @@ export default function BudgetTracker() {
     receiptUrl: "",
   });
   const [editId, setEditId] = useState<string | null>(null);
-  const [uploading, setUploading] = useState(false);
+  // const [uploading, setUploading] = useState(false);
   const [vendors, setVendors] = useState<Vendor[]>([]);
 
   const entriesRef = collection(db, `budget/${event}/entries`);
@@ -96,37 +94,37 @@ export default function BudgetTracker() {
       .map(v => [v.name, v.totalPrice || 0])
   ];
 
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+  // const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const file = e.target.files?.[0];
+  //   if (!file) return;
 
-    setUploading(true);
-    const storageRef = ref(storage, `budget/${Date.now()}_${file.name}`);
-    await uploadBytes(storageRef, file);
-    const url = await getDownloadURL(storageRef);
-    setForm((prev) => ({ ...prev, receiptUrl: url }));
-    setUploading(false);
-  };
+  //   setUploading(true);
+  //   const storageRef = ref(storage, `budget/${Date.now()}_${file.name}`);
+  //   await uploadBytes(storageRef, file);
+  //   const url = await getDownloadURL(storageRef);
+  //   setForm((prev) => ({ ...prev, receiptUrl: url }));
+  //   setUploading(false);
+  // };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (editId) {
-      await updateDoc(doc(db, `budget/${event}/entries`, editId), form);
-      setEditId(null);
-    } else {
-      await addDoc(entriesRef, form);
-    }
-    setForm({ item: "", vendor: "", estimatedCost: 0, actualCost: 0, paid: false, notes: "", receiptUrl: "" });
-  };
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   if (editId) {
+  //     await updateDoc(doc(db, `budget/${event}/entries`, editId), form);
+  //     setEditId(null);
+  //   } else {
+  //     await addDoc(entriesRef, form);
+  //   }
+  //   setForm({ item: "", vendor: "", estimatedCost: 0, actualCost: 0, paid: false, notes: "", receiptUrl: "" });
+  // };
 
-  const handleEdit = (entry: BudgetEntry) => {
-    setEditId(entry.id);
-    setForm({ ...entry });
-  };
+  // const handleEdit = (entry: BudgetEntry) => {
+  //   setEditId(entry.id);
+  //   setForm({ ...entry });
+  // };
 
-  const handleDelete = async (id: string) => {
-    await deleteDoc(doc(db, `budget/${event}/entries`, id));
-  };
+  // const handleDelete = async (id: string) => {
+  //   await deleteDoc(doc(db, `budget/${event}/entries`, id));
+  // };
 
   const options = {
     title: `${event} Budget`,
