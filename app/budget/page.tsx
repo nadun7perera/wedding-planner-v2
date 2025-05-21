@@ -11,8 +11,14 @@ import {
   doc,
   onSnapshot,
   updateDoc,
+  query,
+  orderBy,
+  Unsubscribe,
+
 } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { Chart } from "react-google-charts";
+import { log } from "console";
 
 type BudgetEntry = {
   id: string;
@@ -23,6 +29,18 @@ type BudgetEntry = {
   paid: boolean;
   notes: string;
   receiptUrl?: string;
+};
+
+type Vendor = {
+  id: string;
+  name: string;
+  contact: string;
+  catalogue: string;
+  category: string;
+  totalPrice?: number;
+  amountPaid?: number;
+  items?: { name: string; quantity: number }[];
+  booked?: boolean;
 };
 
 export default function BudgetTracker() {
@@ -39,19 +57,44 @@ export default function BudgetTracker() {
   });
   const [editId, setEditId] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
+  const [vendors, setVendors] = useState<Vendor[]>([]);
 
   const entriesRef = collection(db, `budget/${event}/entries`);
 
+  // useEffect(() => {
+  //   return onSnapshot(entriesRef, (snapshot) => {
+  //     setEntries(
+  //       snapshot.docs.map((doc) => ({
+  //         id: doc.id,
+  //         ...(doc.data() as Omit<BudgetEntry, "id">),
+  //       }))
+  //     );
+  //   });
+  // }, [event]);
+
+
   useEffect(() => {
-    return onSnapshot(entriesRef, (snapshot) => {
-      setEntries(
+    const q = query(
+      collection(db, "events", event, "vendors"),
+      orderBy("createdAt", "desc")
+    );
+    const unsubscribe: Unsubscribe = onSnapshot(q, (snapshot) => {
+      setVendors(
         snapshot.docs.map((doc) => ({
           id: doc.id,
-          ...(doc.data() as Omit<BudgetEntry, "id">),
+          ...(doc.data() as Omit<Vendor, "id">),
         }))
       );
     });
+    return () => unsubscribe();
   }, [event]);
+
+  const data = [
+    ["Vendor", "Total Paid"],
+    ...vendors
+      .filter(v => v.totalPrice !== undefined)
+      .map(v => [v.name, v.totalPrice || 0])
+  ];
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -85,6 +128,26 @@ export default function BudgetTracker() {
     await deleteDoc(doc(db, `budget/${event}/entries`, id));
   };
 
+  const options = {
+    title: `${event} Budget`,
+    pieHole: 0.4, // Creates a Donut Chart. Does not do anything when is3D is enabled
+    is3D: true, // Enables 3D view
+    // slices: {
+    //   1: { offset: 0.2 }, // Explodes the second slice
+    // },
+    pieStartAngle: 100, // Rotates the chart
+    sliceVisibilityThreshold: 0.02, // Hides slices smaller than 2%
+    legend: {
+      position: "bottom",
+      alignment: "center",
+      textStyle: {
+        color: "#233238",
+        fontSize: 14,
+      },
+    },
+    colors: ["#8AD1C2", "#9F8AD1", "#D18A99", "#BCD18A", "#D1C28A"],
+  };
+
   return (
     <div className="p-4 space-y-6 max-w-3xl mx-auto">
       <div className="flex justify-between items-center">
@@ -99,7 +162,7 @@ export default function BudgetTracker() {
         </select>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-4 bg-gray-50 p-4 rounded-md shadow-sm">
+      {/* <form onSubmit={handleSubmit} className="space-y-4 bg-gray-50 p-4 rounded-md shadow-sm">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <input
             value={form.item}
@@ -156,9 +219,9 @@ export default function BudgetTracker() {
         >
           {editId ? "Update Entry" : "Add Entry"}
         </button>
-      </form>
+      </form> */}
 
-      <div className="divide-y border-t">
+      {/* <div className="divide-y border-t">
         {entries.map((entry) => (
           <div key={entry.id} className="py-4 flex flex-col md:flex-row justify-between gap-4">
             <div className="text-sm">
@@ -188,7 +251,16 @@ export default function BudgetTracker() {
             </div>
           </div>
         ))}
-      </div>
+      </div> */}
+
+
+      <Chart
+        chartType="PieChart"
+        data={data}
+        options={options}
+        width={"100%"}
+        height={"400px"}
+      />
     </div>
   );
 }
