@@ -10,7 +10,6 @@ import {
   deleteDoc,
   doc,
   onSnapshot,
-  updateDoc,
 } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 

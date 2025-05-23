@@ -40,6 +40,7 @@ export default function RootLayout({
             <Link href="/budget" className="hover:underline">Budget</Link>
             <Link href="/vendors" className="hover:underline">Vendor List</Link>
             <Link href="/vendors/addVendors" className="hover:underline">Add Vendor</Link>
+            <Link href="/floor-plan" className="hover:underline">Floor Plan</Link>
           </nav>
 
           {/* Main Content */}
