@@ -69,7 +69,7 @@ export default function VendorList() {
       {/* Optional banner image */}
       <div className="-mx-4 sm:-mx-6 mb-4">
         <img
-          src="/vendor-list.jpg"
+          src="/vendor-list1.png"
           alt="Wedding table setting"
           className="w-full h-64 object-cover"
         />

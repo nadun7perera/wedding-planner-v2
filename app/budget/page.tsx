@@ -90,6 +90,8 @@ export default function BudgetTracker() {
       .map(v => [v.name, v.totalPrice || 0])
   ];
 
+  const totalCost = vendors.reduce((sum, v) => sum + (v.totalPrice || 0), 0);
+
   // const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
   //   const file = e.target.files?.[0];
   //   if (!file) return;
@@ -247,6 +249,9 @@ export default function BudgetTracker() {
         ))}
       </div> */}
 
+    <div className="text-lg font-semibold text-right">
+      Total Cost: LKR {totalCost.toLocaleString()}
+    </div>
 
       <Chart
         chartType="PieChart"
