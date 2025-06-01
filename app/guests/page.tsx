@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { HTMLInputTypeAttribute, useEffect, useState } from "react";
 import { db } from "../firebase";
 import {
     collection,
@@ -53,7 +53,7 @@ export default function GuestList() {
 
     const toggleForm = () => setShowForm((prev) => !prev);
 
-    const handleInputChange = (e: { target: { name: any; value: any; type: any; checked: any; }; }) => {
+    const handleInputChange = (e: { target: { name: string; value: string; type: HTMLInputTypeAttribute; checked: boolean; }; }) => {
         const { name, value, type, checked } = e.target;
         setNewGuest((prev) => ({
             ...prev,
