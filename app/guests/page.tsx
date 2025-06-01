@@ -185,7 +185,7 @@ export default function GuestList() {
                         <div className="mb-4">
                             <button
                                 onClick={toggleForm}
-                                className="bg-[#4a9f4a] hover:bg-[#3e8640] text-black px-4 py-2 rounded-xl font-semibold"
+                                className="bg-[#4a9f4a] hover:bg-[#3e8640] text-white px-4 py-2 rounded-xl font-semibold"
                             >
                                 {showForm ? "Cancel" : "Add Guest"}
                             </button>
@@ -245,7 +245,7 @@ export default function GuestList() {
                                     />
                                     <button
                                         type="submit"
-                                        className="bg-[#4a9f4a] hover:bg-[#3e8640] text-black px-5 py-2 rounded-xl font-semibold"
+                                        className="bg-[#4a9f4a] hover:bg-[#3e8640] text-white px-5 py-2 rounded-xl font-semibold"
                                     >
                                         Add
                                     </button>
