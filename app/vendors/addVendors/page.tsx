@@ -11,11 +11,11 @@ import {
 } from "firebase/firestore"
 
 export default function VendorForm() {
-  const [selectedEvent, setSelectedEvent] = useState<"Poruwa"|"Reception">("Poruwa")
-  const [name, setName]       = useState("")
-  const [category, setCategory]       = useState("")
+  const [selectedEvent, setSelectedEvent] = useState<"Poruwa" | "Reception">("Poruwa")
+  const [name, setName] = useState("")
+  const [category, setCategory] = useState("")
   const [contact, setContact] = useState("")
-  const [fileUrl, setFileUrl] = useState<string|null>(null)
+  const [fileUrl, setFileUrl] = useState<string | null>(null)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -51,7 +51,7 @@ export default function VendorForm() {
         <select
           value={selectedEvent}
           onChange={e =>
-            setSelectedEvent(e.target.value as "Poruwa"|"Reception")
+            setSelectedEvent(e.target.value as "Poruwa" | "Reception")
           }
           className="w-full border rounded p-2"
         >
@@ -106,18 +106,12 @@ export default function VendorForm() {
 
       {/* Submit */}
       <button
-  type="submit"
-  className="
-    px-6 py-2
-    bg-accent text-gray-900
-    font-medium rounded
-    hover:bg-accent-dark
-    transition
-    border-2 border-green-500
-  "
->
-  Add Vendor
-</button>
+        type="submit"
+        className="bg-[#4a9f4a] hover:bg-[#3e8640] text-white px-5 py-2 rounded-xl font-semibold"
+
+      >
+        Add Vendor
+      </button>
 
     </form>
   )

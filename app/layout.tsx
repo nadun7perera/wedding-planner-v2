@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Link from 'next/link';
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,11 +25,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-gray-900`}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-gray-900`}
+      >
         <div className="min-h-screen flex flex-col">
           {/* Header */}
-          <header className="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#e7f3e7] px-10 py-3">
-            <div className="flex items-center gap-4 text-[#0e1b0e]">
+          <header className="flex flex-wrap items-center justify-between border-b border-solid border-b-[#e7f3e7] px-4 sm:px-6 md:px-10 py-3 gap-4">
+            {/* Left Side */}
+            <div className="flex items-center gap-2 text-[#0e1b0e]">
               <div className="size-4">
                 <svg
                   viewBox="0 0 48 48"
@@ -49,46 +52,77 @@ export default function RootLayout({
                   </defs>
                 </svg>
               </div>
-              <h2 className="text-[#0e1b0e] text-lg font-bold leading-tight tracking-[-0.015em]">
+              <h2 className="text-lg font-bold leading-tight tracking-[-0.015em]">
                 O | N
               </h2>
             </div>
-            <div className="flex flex-1 justify-end gap-8">
-              {/* Navigation */}
 
-              <div className="flex items-center gap-9">
-                <Link href="/" className="text-[#0e1b0e] text-sm font-medium leading-normal">Home</Link>
-                <Link href="/guests" className="text-[#0e1b0e] text-sm font-medium leading-normal">Guests</Link>
-                <Link href="/budget" className="text-[#0e1b0e] text-sm font-medium leading-normal">Budget</Link>
-                <Link href="/vendors" className="text-[#0e1b0e] text-sm font-medium leading-normal">Vendor List</Link>
-                <Link href="/vendors/addVendors" className="text-[#0e1b0e] text-sm font-medium leading-normal">Add Vendor</Link>
-                <Link href="/floor-plan" className="text-[#0e1b0e] text-sm font-medium leading-normal">Floor Plan</Link>
-              </div>
-              <button
-                className="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 bg-[#e7f3e7] text-[#0e1b0e] gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5"
-              >
-                <div className="text-[#0e1b0e]">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20px"
-                    height="20px"
-                    fill="currentColor"
-                    viewBox="0 0 256 256"
-                  >
-                    <path d="M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06ZM128,216a24,24,0,0,1-22.62-16h45.24A24,24,0,0,1,128,216ZM48,184c7.7-13.24,16-43.92,16-80a64,64,0,1,1,128,0c0,36.05,8.28,66.73,16,80Z" />
-                  </svg>
-                </div>
+            {/* Navigation */}
+            <nav className="hidden md:flex flex-1 justify-center gap-6 flex-wrap">
+              <Link href="/" className="text-sm font-medium">
+                Home
+              </Link>
+              <Link href="/guests" className="text-sm font-medium">
+                Guests
+              </Link>
+              <Link href="/budget" className="text-sm font-medium">
+                Budget
+              </Link>
+              <Link href="/vendors" className="text-sm font-medium">
+                Vendor List
+              </Link>
+              <Link href="/vendors/addVendors" className="text-sm font-medium">
+                Add Vendor
+              </Link>
+              <Link href="/floor-plan" className="text-sm font-medium">
+                Floor Plan
+              </Link>
+            </nav>
+
+            {/* Right Side */}
+            <div className="flex items-center gap-4">
+              <button className="flex h-10 items-center justify-center rounded-full bg-[#e7f3e7] text-[#0e1b0e] gap-2 text-sm font-bold px-2.5">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20px"
+                  height="20px"
+                  fill="currentColor"
+                  viewBox="0 0 256 256"
+                >
+                  <path d="M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06ZM128,216a24,24,0,0,1-22.62-16h45.24A24,24,0,0,1,128,216ZM48,184c7.7-13.24,16-43.92,16-80a64,64,0,1,1,128,0c0,36.05,8.28,66.73,16,80Z" />
+                </svg>
               </button>
               <div
-                className="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
+                className="bg-center bg-no-repeat bg-cover rounded-full size-10"
                 style={{
                   backgroundImage:
                     'url("https://lh3.googleusercontent.com/aida-public/AB6AXuBAlq4O6Ir3uUoMi29EtiAkkiWxsy-lcrMnbDuqwh9E33nIZxM7bsmvIR-ezkoi-QqJZnrjcPbKMQiHXWzaDJ5D2h_HK1sxAUHqk2zdBmnJHK2ypIjG8nWehWmsuqsEUgHL6BjHvyVfXQe3scKQbolstrrIqsHGZ3d5s20tXsZqpwOoxC_uyb-SENyi-OB91I00BNWlE0zyUIRgZKJgbPvoVF6IOVU_TXWDAXVVnNte1b37C3hG5PSNv0oQQHhWMGiVSkfBjkKCcrg")',
                 }}
               ></div>
             </div>
-          </header>
 
+            {/* Mobile Navigation (optional) */}
+            <nav className="flex md:hidden flex-wrap justify-center w-full gap-4 pt-2">
+              <Link href="/" className="text-sm font-medium">
+                Home
+              </Link>
+              <Link href="/guests" className="text-sm font-medium">
+                Guests
+              </Link>
+              <Link href="/budget" className="text-sm font-medium">
+                Budget
+              </Link>
+              <Link href="/vendors" className="text-sm font-medium">
+                Vendor List
+              </Link>
+              <Link href="/vendors/addVendors" className="text-sm font-medium">
+                Add Vendor
+              </Link>
+              <Link href="/floor-plan" className="text-sm font-medium">
+                Floor Plan
+              </Link>
+            </nav>
+          </header>
 
           {/* Main Content */}
           <main className="flex-1 container mx-auto w-full px-4 sm:px-6 md:px-8 py-6">
